@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "C:\\Users\\asantaballa\\Nextcloud\\vpk\\ZAL_VpkFileLoad\\VPK Classroom - Instructor List 10052022.csv", 
+                "C:\\Users\\asantaballa\\Nextcloud\\vpk\\ZAL_VpkFileLoad\\vpkloadcsv.txt",
+                "ZAL_TestTable"
+            ]
+        }
+    ]
+}
+
