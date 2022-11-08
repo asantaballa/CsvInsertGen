@@ -1,3 +1,4 @@
+import datetime
 import sys
 import csv
 from tabulate import tabulate
@@ -22,8 +23,8 @@ else:
 
 outfile = open(fileoutname, "w")
 
-# -- Go through once to get stats
 
+# -- Go through once to get stats
 print("gathering stats")
 with open(fileinname, newline="\n") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -56,6 +57,14 @@ with open(fileinname, newline="\n") as csvfile:
 
             if (len(col) > colinfo.maxlen):
                 colinfo.maxlen = len(col)
+
+outfile.write("-- == CsvInsertGen.py == -- \n")
+outfile.write("-- Created       = {datetime}\n".format(datetime=datetime.datetime.now()))
+outfile.write("-- fileinname    = {fileinname}\n".format(fileinname=fileinname))
+outfile.write("-- fileoutname   = {fileoutname}\n".format(fileoutname=fileoutname))
+outfile.write("-- tblname       = {tblname}\n".format(tblname=tblname))
+outfile.write("-- Total rows    = {cnt:,} (+ 1 header)\n".format(cnt=cnt))
+outfile.write("\n")
 
 coltab = []
 for colinfo in cols:
@@ -136,6 +145,4 @@ print("File Out:", fileoutname)
 print("Rows:", cnt)    
 print()    
 print(tabulate(coltab, headers=["name","maxlen"]))
-print()    
-    
-    
+print()

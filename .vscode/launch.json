@@ -9,9 +9,9 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "args": [
-                "C:\\Users\\asantaballa\\Nextcloud\\vpk\\ZAL_VpkFileLoad\\VPK Classroom - Instructor List 10052022.csv", 
-                "C:\\Users\\asantaballa\\Nextcloud\\vpk\\ZAL_VpkFileLoad\\vpkloadcsv.txt",
-                "ZAL_TestTable"
+                "C:\\Users\\asantaballa\\Nextcloud\\vpk\\ZAL_VpkFileLoad\\VPK Classroom Instructor List 11082022.csv", 
+                "C:\\Users\\asantaballa\\Nextcloud\\vpk\\ZAL_VpkFileLoad\\VpkLoad00_UploadFromCsv.sql",
+                "T_VpkLoadTableRaw"
             ]
         }
     ]
