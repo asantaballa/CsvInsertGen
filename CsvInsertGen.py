@@ -45,6 +45,7 @@ with open(fileinname, newline="\n") as csvfile:
 
     # loop through rest of rows of csv
     cnt = 0
+    cntinsert = 0
     for row in csvreader:
 
         cnt = cnt + 1
@@ -63,7 +64,7 @@ outfile.write("-- Created       = {datetime}\n".format(datetime=datetime.datetim
 outfile.write("-- fileinname    = {fileinname}\n".format(fileinname=fileinname))
 outfile.write("-- fileoutname   = {fileoutname}\n".format(fileoutname=fileoutname))
 outfile.write("-- tblname       = {tblname}\n".format(tblname=tblname))
-outfile.write("-- Total rows    = {cnt:,} (+ 1 header)\n".format(cnt=cnt))
+outfile.write("-- Total rows in = {cnt:,} (+ 1 header)\n".format(cnt=cnt))
 outfile.write("\n")
 
 coltab = []
@@ -114,6 +115,11 @@ with open(fileinname, newline="\n") as csvfile:
 
         cnt = cnt + 1
 
+        ### DANGER! Use this code only when selecting/running for individual providers.
+        # selectedproviders = ['11761']
+        # if (row[0] not in selectedproviders):
+        #     continue
+
         colvaluesquotedlist = []
         i = -1
         for col in row:
@@ -121,6 +127,7 @@ with open(fileinname, newline="\n") as csvfile:
             colvaluequoted = "\'" + col.replace("\'","\'\'") + "\'"
             colvaluesquotedlist.append(colvaluequoted)
 
+        cntinsert = cntinsert + 1
         outfile.write("INSERT {tblname} ({sqlcolnames})\n".format(tblname=tblname, sqlcolnames=sqlcolnames))
         colvaluesquoted = ", ".join(colvaluesquotedlist)
         outfile.write("VALUES ({colvaluesquoted})\n".format(colvaluesquoted=colvaluesquoted))
@@ -137,12 +144,15 @@ outfile.write("SELECT Cnt = COUNT(*) FROM {tblname}\n".format(tblname=tblname))
 outfile.write("GO\n")    
 outfile.write("\n")
 
+outfile.write("-- Total inserts {cntinsert:,}\n".format(cntinsert=cntinsert))
+
 outfile.close()
 
 print()
 print("File In:", fileinname)    
 print("File Out:", fileoutname)    
 print("Rows:", cnt)    
+print("Inserts:", cntinsert)    
 print()    
 print(tabulate(coltab, headers=["name","maxlen"]))
 print()
