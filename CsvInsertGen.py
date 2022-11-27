@@ -1,15 +1,15 @@
 import datetime
+import re
 import sys
 import csv
 from tabulate import tabulate
-# import random
-# import string
 
 class ColInfo:
     name = ""
     maxlen = 0
 
-multiplierforsize = 1.1    
+multiplierforsize = 1.1   
+charstoremove = "ï»¿" 
 
 print("Starting")
 
@@ -23,7 +23,6 @@ else:
 
 outfile = open(fileoutname, "w")
 
-
 # -- Go through once to get stats
 print("gathering stats")
 with open(fileinname, newline="\n") as csvfile:
@@ -33,13 +32,18 @@ with open(fileinname, newline="\n") as csvfile:
     cols = []
     for row in csvreader: 
         colnames = row;    
-        sqlcolnames = ", ".join(colnames)
 
         for col in colnames:
+            col = re.sub("[" + charstoremove + "]", "", col, 0, re.IGNORECASE)
             newcol = ColInfo()
             newcol.name = col
+            newcol.sqlname = "[" + newcol.name + "]"
             newcol.maxlen = 0
             cols.append(newcol)
+
+        # sqlcolnames = ", ".join(colnames)
+
+        sqlcolnames = ", ".join(col.sqlname for col in cols)
 
         break    
 
@@ -91,7 +95,7 @@ for colinfo in cols:
     # coltab.append([colinfo.name, colinfo.maxlen])
     collentouse = int(max([50, colinfo.maxlen * multiplierforsize]))
 
-    outfile.write(", {colname} NVARCHAR({collentouse}) NULL".format(colname=colinfo.name, collentouse=collentouse))
+    outfile.write(", {colname} NVARCHAR({collentouse}) NULL".format(colname=colinfo.sqlname, collentouse=collentouse))
     outfile.write("\n".format(colname=colinfo.name))
 
 outfile.write(")\n")
@@ -116,7 +120,7 @@ with open(fileinname, newline="\n") as csvfile:
         cnt = cnt + 1
 
         ### DANGER! Use this code only when selecting/running for individual providers.
-        # selectedproviders = ['11761']
+        # selectedproviders = ['2377']
         # if (row[0] not in selectedproviders):
         #     continue
 
@@ -144,7 +148,7 @@ outfile.write("SELECT Cnt = COUNT(*) FROM {tblname}\n".format(tblname=tblname))
 outfile.write("GO\n")    
 outfile.write("\n")
 
-outfile.write("-- Total inserts {cntinsert:,}\n".format(cntinsert=cntinsert))
+outfile.write("-- Total to insert {cntinsert:,}\n".format(cntinsert=cntinsert))
 
 outfile.close()
 
