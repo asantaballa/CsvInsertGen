@@ -51,7 +51,6 @@ with open(fileinname, newline="\n") as csvfile:
     cnt = 0
     cntinsert = 0
     for row in csvreader:
-
         cnt = cnt + 1
 
         colvaluesquotedlist = []
