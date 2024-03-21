@@ -37,7 +37,7 @@ with open(fileinname, newline="\n") as csvfile:
             col = re.sub("[" + charstoremove + "]", "", col, 0, re.IGNORECASE)
             newcol = ColInfo()
             newcol.name = col
-            newcol.sqlname = "[" + newcol.name + "]"
+            newcol.sqlname = "[" + newcol.name.strip().replace(" ", "_") + "]"
             newcol.maxlen = 0
             cols.append(newcol)
 
@@ -119,7 +119,7 @@ with open(fileinname, newline="\n") as csvfile:
         cnt = cnt + 1
 
         ### DANGER! Use this code only when selecting/running for individual providers.
-        # selectedproviders = ['2377']
+        # selectedproviders = ['11570', '11571', '22934']
         # if (row[0] not in selectedproviders):
         #     continue
 

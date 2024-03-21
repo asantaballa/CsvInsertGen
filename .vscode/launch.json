@@ -4,15 +4,16 @@
         
         {
             "name": "Python: Current File",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "args": [
-                "C:\\Users\\asantaballa\\Nextcloud\\vpk\\ZAL_VpkFileLoad\\VPK Classroom Instructor List 11282022.csv", 
-                "C:\\Users\\asantaballa\\Nextcloud\\vpk\\ZAL_VpkFileLoad\\VpkLoad_00_UploadFromCsv.sql",
-                "ZAL_T_VpkLoadTableRaw"
-            ]
+                "from.csv", 
+                "to.sql",
+                "tblname"
+            ],
+
         }
     ]
 }
